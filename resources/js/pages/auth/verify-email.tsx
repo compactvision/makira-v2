@@ -3,11 +3,17 @@ import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
-import { logout } from '@/routes';
-import { send } from '@/routes/verification';
-import { Form, Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 
 export default function VerifyEmail({ status }: { status?: string }) {
+    const { post, processing } = useForm({});
+
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault();
+        post(route('verification.send'));
+    };
+
     return (
         <AuthLayout
             title="Verify email"
@@ -22,23 +28,20 @@ export default function VerifyEmail({ status }: { status?: string }) {
                 </div>
             )}
 
-            <Form {...send.form()} className="space-y-6 text-center">
-                {({ processing }) => (
-                    <>
-                        <Button disabled={processing} variant="secondary">
-                            {processing && <Spinner />}
-                            Resend verification email
-                        </Button>
+            <form onSubmit={submit} className="space-y-6 text-center">
+                <Button disabled={processing} variant="secondary">
+                    {processing && <Spinner />}
+                    Resend verification email
+                </Button>
 
-                        <TextLink
-                            href={logout()}
-                            className="mx-auto block text-sm"
-                        >
-                            Log out
-                        </TextLink>
-                    </>
-                )}
-            </Form>
+                <TextLink
+                    href={route('logout')}
+                    method="post"
+                    className="mx-auto block text-sm"
+                >
+                    Log out
+                </TextLink>
+            </form>
         </AuthLayout>
     );
 }

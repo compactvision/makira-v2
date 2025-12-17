@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
-import { disable, enable, show } from '@/routes/two-factor';
 import { type BreadcrumbItem } from '@/types';
-import { Form, Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { ShieldBan, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
+import { route } from 'ziggy-js';
 
 interface TwoFactorProps {
     requiresConfirmation?: boolean;
@@ -20,7 +20,7 @@ interface TwoFactorProps {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Two-Factor Authentication',
-        href: show.url(),
+        href: route('two-factor.show'),
     },
 ];
 
@@ -39,6 +39,24 @@ export default function TwoFactor({
         errors,
     } = useTwoFactorAuth();
     const [showSetupModal, setShowSetupModal] = useState<boolean>(false);
+
+    const { post: enablePost, processing: enabling } = useForm({});
+    const { delete: disableDelete, processing: disabling } = useForm({});
+
+    const enableTwoFactor = (e: React.FormEvent) => {
+        e.preventDefault();
+        enablePost(route('two-factor.enable'), {
+            preserveScroll: true,
+            onSuccess: () => setShowSetupModal(true),
+        });
+    };
+
+    const disableTwoFactor = (e: React.FormEvent) => {
+        e.preventDefault();
+        disableDelete(route('two-factor.disable'), {
+            preserveScroll: true,
+        });
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -66,17 +84,15 @@ export default function TwoFactor({
                             />
 
                             <div className="relative inline">
-                                <Form {...disable.form()}>
-                                    {({ processing }) => (
-                                        <Button
-                                            variant="destructive"
-                                            type="submit"
-                                            disabled={processing}
-                                        >
-                                            <ShieldBan /> Disable 2FA
-                                        </Button>
-                                    )}
-                                </Form>
+                                <form onSubmit={disableTwoFactor}>
+                                    <Button
+                                        variant="destructive"
+                                        type="submit"
+                                        disabled={disabling}
+                                    >
+                                        <ShieldBan /> Disable 2FA
+                                    </Button>
+                                </form>
                             </div>
                         </div>
                     ) : (
@@ -98,22 +114,15 @@ export default function TwoFactor({
                                         Continue Setup
                                     </Button>
                                 ) : (
-                                    <Form
-                                        {...enable.form()}
-                                        onSuccess={() =>
-                                            setShowSetupModal(true)
-                                        }
-                                    >
-                                        {({ processing }) => (
-                                            <Button
-                                                type="submit"
-                                                disabled={processing}
-                                            >
-                                                <ShieldCheck />
-                                                Enable 2FA
-                                            </Button>
-                                        )}
-                                    </Form>
+                                    <form onSubmit={enableTwoFactor}>
+                                        <Button
+                                            type="submit"
+                                            disabled={enabling}
+                                        >
+                                            <ShieldCheck />
+                                            Enable 2FA
+                                        </Button>
+                                    </form>
                                 )}
                             </div>
                         </div>

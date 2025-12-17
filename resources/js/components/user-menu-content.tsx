@@ -6,17 +6,17 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { UserInfo } from '@/components/user-info';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
-import { logout } from '@/routes';
-import { edit } from '@/routes/profile';
 import { type User } from '@/types';
 import { Link, router } from '@inertiajs/react';
 import { LogOut, Settings } from 'lucide-react';
+import { route } from 'ziggy-js';
 
 interface UserMenuContentProps {
     user: User;
+    userProfile?: any;
 }
 
-export function UserMenuContent({ user }: UserMenuContentProps) {
+export function UserMenuContent({ user, userProfile }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
 
     const handleLogout = () => {
@@ -28,7 +28,11 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
         <>
             <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <UserInfo user={user} showEmail={true} />
+                    <UserInfo
+                        user={user}
+                        userProfile={userProfile}
+                        showEmail={true}
+                    />
                 </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
@@ -36,7 +40,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                 <DropdownMenuItem asChild>
                     <Link
                         className="block w-full"
-                        href={edit()}
+                        href={route('profile.edit')}
                         as="button"
                         prefetch
                         onClick={cleanup}
@@ -50,7 +54,8 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             <DropdownMenuItem asChild>
                 <Link
                     className="block w-full"
-                    href={logout()}
+                    href={route('logout')}
+                    method="post"
                     as="button"
                     onClick={handleLogout}
                     data-test="logout-button"

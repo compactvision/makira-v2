@@ -18,6 +18,7 @@ import { ChevronsUpDown } from 'lucide-react';
 
 export function NavUser() {
     const { auth } = usePage<SharedData>().props;
+    const userProfile = (auth as any).userProfile || {};
     const { state } = useSidebar();
     const isMobile = useIsMobile();
 
@@ -31,7 +32,10 @@ export function NavUser() {
                             className="group text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent"
                             data-test="sidebar-menu-button"
                         >
-                            <UserInfo user={auth.user} />
+                            <UserInfo
+                                user={auth.user}
+                                userProfile={userProfile}
+                            />
                             <ChevronsUpDown className="ml-auto size-4" />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
@@ -46,7 +50,10 @@ export function NavUser() {
                                   : 'bottom'
                         }
                     >
-                        <UserMenuContent user={auth.user} />
+                        <UserMenuContent
+                            user={auth.user}
+                            userProfile={userProfile}
+                        />
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>
