@@ -182,33 +182,7 @@ const Hero = ({ notification }) => {
                             )}
                         </div>
 
-                        {/* Tags populaires simplifiés */}
-                        <div className="animate-fade-in animation-delay-1100 text-gray-300">
-                            <span className="mb-3 block font-semibold text-white">
-                                Recherches populaires :
-                            </span>
-                            <div className="flex flex-wrap gap-3">
-                                {[
-                                    'Developer',
-                                    'Designer',
-                                    'Architect',
-                                    'Engineer',
-                                    'Data Scientist',
-                                    'PHP',
-                                ].map((tag, index) => (
-                                    <button
-                                        key={tag}
-                                        onClick={() => handleTagClick(tag)}
-                                        style={{
-                                            animationDelay: `${1200 + index * 100}ms`,
-                                        }}
-                                        className="animate-fade-in rounded-full border border-gray-700/50 bg-gray-800/50 px-4 py-2 text-gray-300 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-gray-700/50 hover:text-white"
-                                    >
-                                        {tag}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
+                       
                     </div>
 
                     {/* Section Droite - Cercle animé */}

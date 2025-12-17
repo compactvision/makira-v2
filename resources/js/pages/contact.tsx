@@ -1,4 +1,5 @@
 import AppShell from '@/layouts/app-shell';
+import { useForm } from '@inertiajs/react';
 import {
     FileText,
     Mail,
@@ -8,10 +9,11 @@ import {
     Send,
     User,
 } from 'lucide-react';
-import { useState } from 'react';
+import { toast } from 'sonner';
+import { route } from 'ziggy-js';
 
 export default function Contact() {
-    const [formData, setFormData] = useState({
+    const { data, setData, post, processing, reset, errors } = useForm({
         username: '',
         email: '',
         phone: '',
@@ -23,23 +25,21 @@ export default function Contact() {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setData(name as any, value);
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Ici vous pouvez ajouter la logique pour envoyer le formulaire
-        console.log('Données du formulaire:', formData);
-        // Réinitialiser le formulaire après envoi
-        setFormData({
-            username: '',
-            email: '',
-            phone: '',
-            subject: '',
-            message: '',
+        post(route('contact.submit'), {
+            onSuccess: () => {
+                reset();
+                toast.success('Votre message a été envoyé avec succès !');
+            },
+            onError: () => {
+                toast.error(
+                    "Une erreur est survenue lors de l'envoi de votre message.",
+                );
+            },
         });
     };
 
@@ -96,12 +96,17 @@ export default function Contact() {
                                             <input
                                                 type="text"
                                                 name="username"
-                                                value={formData.username}
+                                                value={data.username}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full rounded-md border border-gray-300 py-3 pr-3 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                                className={`w-full rounded-md border ${errors.username ? 'border-red-500' : 'border-gray-300'} py-3 pr-3 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none`}
                                                 placeholder="Nom"
                                             />
+                                            {errors.username && (
+                                                <p className="mt-1 text-xs text-red-500">
+                                                    {errors.username}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div className="relative">
@@ -111,12 +116,17 @@ export default function Contact() {
                                             <input
                                                 type="email"
                                                 name="email"
-                                                value={formData.email}
+                                                value={data.email}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full rounded-md border border-gray-300 py-3 pr-3 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                                className={`w-full rounded-md border ${errors.email ? 'border-red-500' : 'border-gray-300'} py-3 pr-3 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none`}
                                                 placeholder="Email"
                                             />
+                                            {errors.email && (
+                                                <p className="mt-1 text-xs text-red-500">
+                                                    {errors.email}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div className="relative">
@@ -126,12 +136,17 @@ export default function Contact() {
                                             <input
                                                 type="tel"
                                                 name="phone"
-                                                value={formData.phone}
+                                                value={data.phone}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full rounded-md border border-gray-300 py-3 pr-3 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                                className={`w-full rounded-md border ${errors.phone ? 'border-red-500' : 'border-gray-300'} py-3 pr-3 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none`}
                                                 placeholder="Téléphone"
                                             />
+                                            {errors.phone && (
+                                                <p className="mt-1 text-xs text-red-500">
+                                                    {errors.phone}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div className="relative">
@@ -141,32 +156,47 @@ export default function Contact() {
                                             <input
                                                 type="text"
                                                 name="subject"
-                                                value={formData.subject}
+                                                value={data.subject}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full rounded-md border border-gray-300 py-3 pr-3 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                                className={`w-full rounded-md border ${errors.subject ? 'border-red-500' : 'border-gray-300'} py-3 pr-3 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none`}
                                                 placeholder="Sujet"
                                             />
+                                            {errors.subject && (
+                                                <p className="mt-1 text-xs text-red-500">
+                                                    {errors.subject}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
 
                                     <div className="relative">
                                         <textarea
                                             name="message"
-                                            value={formData.message}
+                                            value={data.message}
                                             onChange={handleChange}
-                                            className="w-full resize-none rounded-md border border-gray-300 px-3 py-3 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            required
+                                            className={`w-full resize-none rounded-md border ${errors.message ? 'border-red-500' : 'border-gray-300'} px-3 py-3 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none`}
                                             placeholder="Message"
+                                            rows={4}
                                         ></textarea>
+                                        {errors.message && (
+                                            <p className="mt-1 text-xs text-red-500">
+                                                {errors.message}
+                                            </p>
+                                        )}
                                     </div>
 
                                     <div>
                                         <button
                                             type="submit"
-                                            className="flex items-center rounded-md bg-blue-600 px-8 py-3 font-bold text-white transition duration-300 hover:bg-blue-700"
+                                            disabled={processing}
+                                            className="flex items-center rounded-md bg-blue-600 px-8 py-3 font-bold text-white transition duration-300 hover:bg-blue-700 disabled:opacity-50"
                                         >
                                             <Send className="mr-2" size={18} />
-                                            Envoyer
+                                            {processing
+                                                ? 'Envoi en cours...'
+                                                : 'Envoyer'}
                                         </button>
                                     </div>
                                 </form>

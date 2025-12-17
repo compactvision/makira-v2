@@ -465,90 +465,7 @@ const AdminLayout = ({
                         </div>
 
                         <div className="ml-4 flex items-center space-x-3 md:ml-6">
-                            {/* Notifications */}
-                            <div className="relative">
-                                <button
-                                    className="rounded-full p-1 text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
-                                    onClick={() =>
-                                        setShowNotifications(!showNotifications)
-                                    }
-                                >
-                                    <Bell className="h-6 w-6" />
-                                    <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
-                                </button>
-
-                                {/* Notifications dropdown */}
-                                {showNotifications && (
-                                    <div className="ring-opacity-5 absolute right-0 z-50 mt-2 w-80 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black focus:outline-none">
-                                        <div className="p-4">
-                                            <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                                Notifications
-                                            </h3>
-                                            <div className="mt-2">
-                                                {notifications.map(
-                                                    (notification) => (
-                                                        <div
-                                                            key={
-                                                                notification.id
-                                                            }
-                                                            className="border-b border-gray-100 py-3 last:border-0"
-                                                        >
-                                                            <div className="flex items-start">
-                                                                <div className="flex-shrink-0">
-                                                                    {notification.type ===
-                                                                        'info' && (
-                                                                        <div className="rounded-full bg-blue-100 p-1">
-                                                                            <Mail className="h-4 w-4 text-blue-600" />
-                                                                        </div>
-                                                                    )}
-                                                                    {notification.type ===
-                                                                        'success' && (
-                                                                        <div className="rounded-full bg-green-100 p-1">
-                                                                            <Users className="h-4 w-4 text-green-600" />
-                                                                        </div>
-                                                                    )}
-                                                                    {notification.type ===
-                                                                        'warning' && (
-                                                                        <div className="rounded-full bg-yellow-100 p-1">
-                                                                            <Calendar className="h-4 w-4 text-yellow-600" />
-                                                                        </div>
-                                                                    )}
-                                                                </div>
-                                                                <div className="ml-3 w-0 flex-1">
-                                                                    <p className="text-sm font-medium text-gray-900">
-                                                                        {
-                                                                            notification.title
-                                                                        }
-                                                                    </p>
-                                                                    <p className="mt-1 text-sm text-gray-500">
-                                                                        {
-                                                                            notification.message
-                                                                        }
-                                                                    </p>
-                                                                    <p className="mt-1 text-xs text-gray-400">
-                                                                        {
-                                                                            notification.time
-                                                                        }
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    ),
-                                                )}
-                                            </div>
-                                            <div className="mt-4">
-                                                <Link
-                                                    href="/dashboard/notifications"
-                                                    className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                                                >
-                                                    Voir toutes les
-                                                    notifications
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
+                            
 
                             {/* Profile dropdown */}
                             <div className="relative">
@@ -582,16 +499,10 @@ const AdminLayout = ({
                                         </div>
                                         <div className="py-1">
                                             <Link
-                                                href="/dashboard/profile"
+                                                href="/profile"
                                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                             >
                                                 Mon profil
-                                            </Link>
-                                            <Link
-                                                href="/dashboard/settings"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            >
-                                                Paramètres
                                             </Link>
                                             <form onSubmit={handleLogout}>
                                                 <button

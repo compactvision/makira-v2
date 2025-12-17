@@ -18,37 +18,34 @@ Route::get('/contact', function () {
     return Inertia::render('contact');
 })->name('contact');
 
+Route::post('/contact', [App\Http\Controllers\ContactController::class, 'submit'])->name('contact.submit');
 
-Route::prefix('dashboard')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('dashboard/index');
-    })->name('dashboard');
-    
-    Route::get('/candidat', [App\Http\Controllers\CandidateController::class, 'index'])->name('dashboard.candidat');
-    Route::get('/candidat/{id}', [App\Http\Controllers\CandidateController::class, 'show'])->name('dashboard.candidat.show');
-    Route::post('/candidat/{id}/email', [App\Http\Controllers\CandidateController::class, 'sendEmail'])->name('dashboard.candidat.email');
-    Route::delete('/candidat/{id}', [App\Http\Controllers\CandidateController::class, 'destroy'])->name('dashboard.candidat.destroy');
-})->middleware('auth');
 
-Route::get('/profile', function () {
-    $user = Auth::user();
-    $profile = $user->userProfile;
-    $candidate = $user->candidate;
-    $socialLinks = $candidate ? $candidate->socialLinks : collect();
-    
-    return Inertia::render('dashboard/profile/index', [
-        'userProfile' => $profile,
-        'socialLinks' => $socialLinks->keyBy('platform'),
-    ]);
-})->middleware('auth')->name('dashboard.profile');
-
-Route::get('/resume', function () {
-    return Inertia::render('dashboard/profile/resume');
-})->name('dashboard.profile.resume')->middleware('auth');
-
-// Resume management routes
 Route::middleware('auth')->group(function () {
-    Route::get('/resume', [App\Http\Controllers\ResumeController::class, 'index'])->name('resume.index');
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+        
+        Route::get('/candidat', [App\Http\Controllers\CandidateController::class, 'index'])->name('dashboard.candidat');
+        Route::get('/candidat/{id}', [App\Http\Controllers\CandidateController::class, 'show'])->name('dashboard.candidat.show');
+        Route::post('/candidat/{id}/email', [App\Http\Controllers\CandidateController::class, 'sendEmail'])->name('dashboard.candidat.email');
+        Route::delete('/candidat/{id}', [App\Http\Controllers\CandidateController::class, 'destroy'])->name('dashboard.candidat.destroy');
+    });
+
+    Route::get('/profile', function () {
+        $user = Auth::user();
+        $profile = $user->userProfile;
+        $candidate = $user->candidate;
+        $socialLinks = $candidate ? $candidate->socialLinks : collect();
+        
+        return Inertia::render('dashboard/profile/index', [
+            'userProfile' => $profile,
+            'socialLinks' => $socialLinks->keyBy('platform'),
+        ]);
+    })->name('dashboard.profile');
+
+    Route::get('/resume', [App\Http\Controllers\ResumeController::class, 'index'])->name('dashboard.profile.resume');
+    
+    // Resume management routes
     Route::post('/resume/update-title', [App\Http\Controllers\ResumeController::class, 'updateTitle'])->name('resume.update-title');
     Route::post('/resume/update-skills', [App\Http\Controllers\ResumeController::class, 'updateSkills'])->name('resume.update-skills');
     Route::post('/resume/update-summary', [App\Http\Controllers\ResumeController::class, 'updateSummary'])->name('resume.update-summary');
@@ -70,12 +67,12 @@ Route::middleware('auth')->group(function () {
     
     // Toggle active status
     Route::post('/resume/toggle-active', [App\Http\Controllers\ResumeController::class, 'toggleActive'])->name('resume.toggle-active');
-});
 
-// Profile update routes
-Route::post('/user-profile/update', [App\Http\Controllers\ProfileController::class, 'updateProfile'])->name('profile.update');
-Route::post('/user-profile/update-photo', [App\Http\Controllers\ProfileController::class, 'updatePhoto'])->name('profile.update-photo');
-Route::post('/social-links/update', [App\Http\Controllers\ProfileController::class, 'updateSocialLinks'])->name('social-links.update');
+    // Profile update routes
+    Route::post('/user-profile/update', [App\Http\Controllers\ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/user-profile/update-photo', [App\Http\Controllers\ProfileController::class, 'updatePhoto'])->name('profile.update-photo');
+    Route::post('/social-links/update', [App\Http\Controllers\ProfileController::class, 'updateSocialLinks'])->name('social-links.update');
+});
 
 
 // Route::middleware(['auth', 'verified'])->group(function () {
