@@ -1,1 +1,0 @@
-import{a as o}from"./createLucideIcon-BjdxXtgX.js";const n=[["path",{d:"M5 12h14",key:"1ays0h"}],["path",{d:"m12 5 7 7-7 7",key:"xquz4c"}]],i=o("ArrowRight",n);const e=[["polyline",{points:"22 7 13.5 15.5 8.5 10.5 2 17",key:"126l90"}],["polyline",{points:"16 7 22 7 22 13",key:"kwv8wd"}]],c=o("TrendingUp",e);export{i as A,c as T};

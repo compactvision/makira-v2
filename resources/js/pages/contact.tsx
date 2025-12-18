@@ -215,7 +215,7 @@ export default function Contact() {
                                                     Dans la région ?
                                                 </h3>
                                                 <p className="text-gray-600">
-                                                    avenue mon adresse numero 3
+                                                    Route Matadi, ref. Kananga
                                                 </p>
                                             </div>
                                         </div>
@@ -231,18 +231,10 @@ export default function Contact() {
                                                 </h3>
                                                 <p className="text-gray-600">
                                                     <a
-                                                        href="tel:+2439002344241"
+                                                        href="tel:+243820700196"
                                                         className="transition-colors hover:text-blue-600"
                                                     >
-                                                        +243 900 234 4241
-                                                    </a>
-                                                </p>
-                                                <p className="text-gray-600">
-                                                    <a
-                                                        href="tel:+2439002343219"
-                                                        className="transition-colors hover:text-blue-600"
-                                                    >
-                                                        +243 900 234 3219
+                                                        +243 820 700 196
                                                     </a>
                                                 </p>
                                             </div>
@@ -258,20 +250,13 @@ export default function Contact() {
                                                 </h3>
                                                 <p className="text-gray-600">
                                                     <a
-                                                        href="mailto:infohelp@gmail.com"
+                                                        href="mailto:contact@makiradrc.com"
                                                         className="transition-colors hover:text-blue-600"
                                                     >
-                                                        infohelp@gmail.com
+                                                        contact@makiradrc.com
                                                     </a>
                                                 </p>
-                                                <p className="text-gray-600">
-                                                    <a
-                                                        href="mailto:support12@gmail.com"
-                                                        className="transition-colors hover:text-blue-600"
-                                                    >
-                                                        support12@gmail.com
-                                                    </a>
-                                                </p>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -279,14 +264,15 @@ export default function Contact() {
 
                                 {/* Carte Google Maps */}
                                 <div className="h-96 overflow-hidden rounded-lg shadow-lg">
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.8534521658976!2d-118.2533646842856!3d34.073270780600225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c6fd9829c6f3%3A0x6ecd11bcf4b0c23a!2s1363%20Sunset%20Blvd%2C%20Los%20Angeles%2C%20CA%2090026%2C%20USA!5e0!3m2!1sen!2sin!4v1620815366832!5m2!1sen!2sin"
-                                        width="100%"
-                                        height="100%"
-                                        style={{ border: 0 }}
-                                        loading="lazy"
+                                    <iframe 
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4977.996829582723!2d15.255041667008111!3d-4.394750700556377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a3100428a8a65%3A0x3546133bead67298!2sU.p.n!5e0!3m2!1sfr!2scd!4v1766057718853!5m2!1sfr!2scd" 
+                                        width="100%" 
+                                        height="100%" 
+                                        style={{ border: 0 }} 
+                                        loading="lazy" 
                                         title="Google Maps"
                                     ></iframe>
+
                                 </div>
                             </div>
                         </div>
