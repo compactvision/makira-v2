@@ -34,8 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
         $user = Auth::user();
         $profile = $user->userProfile;
-        $candidate = $user->candidate;
-        $socialLinks = $candidate ? $candidate->socialLinks : collect();
+        $socialLinks = $user->socialLinks;
         
         return Inertia::render('dashboard/profile/index', [
             'userProfile' => $profile,

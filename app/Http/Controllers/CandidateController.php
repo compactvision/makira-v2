@@ -69,7 +69,7 @@ class CandidateController extends Controller
                     'profile' => $user->userProfile ? [
                         'name' => $user->userProfile->name,
                         'photo' => $user->userProfile->photo,
-                        'poste' => $user->userProfile->poste,
+                        'poste' => $user->userProfile->qualification,
                         'country' => $user->userProfile->country,
                         'city' => $user->userProfile->city,
                         'phone' => $user->userProfile->phone,
@@ -98,7 +98,7 @@ class CandidateController extends Controller
 
     public function show($id)
     {
-        $user = User::with(['userProfile', 'resume.educations', 'resume.employments', 'resume.itSkills'])
+        $user = User::with(['userProfile', 'resume.educations', 'resume.employments', 'resume.itSkills', 'socialLinks'])
             ->findOrFail($id);
             
         return Inertia::render('dashboard/candidat/show', [

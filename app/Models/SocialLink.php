@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class SocialLink extends Model
 {
     protected $fillable = [
-        'candidate_id',
+        'user_id',
         'platform',
         'url',
     ];
 
-    public function candidate()
+    public function user()
     {
-        return $this->belongsTo(Candidate::class);
+        return $this->belongsTo(User::class);
     }
 }

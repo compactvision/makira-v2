@@ -21,9 +21,12 @@ const Hero = ({ notification }) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (user?.role === 'admin') {
-            router.visit(`/admin/search?q=${encodeURIComponent(searchTerm)}`, {
-                preserveScroll: true,
-            });
+            router.visit(
+                `/dashboard/candidat?search=${encodeURIComponent(searchTerm)}`,
+                {
+                    preserveScroll: true,
+                },
+            );
         } else {
             router.visit('/resume', { preserveScroll: true });
         }
@@ -32,9 +35,12 @@ const Hero = ({ notification }) => {
     const handleTagClick = (tag: string) => {
         setSearchTerm(tag);
         if (user?.role === 'admin') {
-            router.visit(`/admin/search?q=${encodeURIComponent(tag)}`, {
-                preserveScroll: true,
-            });
+            router.visit(
+                `/dashboard/candidat?search=${encodeURIComponent(tag)}`,
+                {
+                    preserveScroll: true,
+                },
+            );
         }
     };
 
@@ -181,8 +187,6 @@ const Hero = ({ notification }) => {
                                 </div>
                             )}
                         </div>
-
-                       
                     </div>
 
                     {/* Section Droite - Cercle animé */}

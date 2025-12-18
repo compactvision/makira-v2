@@ -11,15 +11,16 @@ import {
     Code,
     DollarSign,
     ExternalLink,
-    Github,
+    Facebook,
     Globe,
     GraduationCap,
+    Instagram,
     Linkedin,
     Mail,
     MapPin,
+    MessageCircle,
     Phone,
     Send,
-    Twitter,
     User,
 } from 'lucide-react';
 import React, { useState } from 'react';
@@ -37,6 +38,21 @@ const CandidateShow = ({ candidate: user }: { candidate: any }) => {
     const itSkills = resume.it_skills || []; // Laravel snake_case
     const employments = resume.employments || [];
     const educations = resume.educations || [];
+
+    // Social links from the new relationship
+    const socialLinks = user.social_links || [];
+    const facebook = socialLinks.find(
+        (s: any) => s.platform === 'facebook',
+    )?.url;
+    const linkedin = socialLinks.find(
+        (s: any) => s.platform === 'linkedin',
+    )?.url;
+    const whatsapp = socialLinks.find(
+        (s: any) => s.platform === 'whatsapp',
+    )?.url;
+    const instagram = socialLinks.find(
+        (s: any) => s.platform === 'instagram',
+    )?.url;
 
     const [activeTab, setActiveTab] = useState('about');
     const {
@@ -785,9 +801,9 @@ const CandidateShow = ({ candidate: user }: { candidate: any }) => {
                             </div>
                             <div className="p-4 sm:p-6">
                                 <div className="space-y-3">
-                                    {profile.linkedin && (
+                                    {linkedin && (
                                         <a
-                                            href={profile.linkedin}
+                                            href={linkedin}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="flex items-center space-x-3 rounded-lg bg-blue-50 p-3 transition-colors duration-200 hover:bg-blue-100"
@@ -800,43 +816,60 @@ const CandidateShow = ({ candidate: user }: { candidate: any }) => {
                                         </a>
                                     )}
 
-                                    {profile.twitter && (
+                                    {facebook && (
                                         <a
-                                            href={profile.twitter}
+                                            href={facebook}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center space-x-3 rounded-lg bg-sky-50 p-3 transition-colors duration-200 hover:bg-sky-100"
+                                            className="flex items-center space-x-3 rounded-lg bg-indigo-50 p-3 transition-colors duration-200 hover:bg-indigo-100"
                                         >
-                                            <Twitter className="h-5 w-5 flex-shrink-0 text-sky-600" />
+                                            <Facebook className="h-5 w-5 flex-shrink-0 text-indigo-600" />
                                             <span className="truncate text-sm font-medium text-gray-900">
-                                                Twitter
+                                                Facebook
                                             </span>
                                             <ExternalLink className="ml-auto h-4 w-4 flex-shrink-0 text-gray-400" />
                                         </a>
                                     )}
 
-                                    {profile.github && (
+                                    {instagram && (
                                         <a
-                                            href={profile.github}
+                                            href={instagram}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center space-x-3 rounded-lg bg-gray-50 p-3 transition-colors duration-200 hover:bg-gray-100"
+                                            className="flex items-center space-x-3 rounded-lg bg-pink-50 p-3 transition-colors duration-200 hover:bg-pink-100"
                                         >
-                                            <Github className="h-5 w-5 flex-shrink-0 text-gray-900" />
+                                            <Instagram className="h-5 w-5 flex-shrink-0 text-pink-600" />
                                             <span className="truncate text-sm font-medium text-gray-900">
-                                                GitHub
+                                                Instagram
                                             </span>
                                             <ExternalLink className="ml-auto h-4 w-4 flex-shrink-0 text-gray-400" />
                                         </a>
                                     )}
 
-                                    {!profile.linkedin &&
-                                        !profile.twitter &&
-                                        !profile.github && (
-                                            <p className="text-sm text-gray-500">
-                                                Aucun réseau social renseigné
-                                            </p>
-                                        )}
+                                    {whatsapp && (
+                                        <a
+                                            href={
+                                                whatsapp.startsWith('http')
+                                                    ? whatsapp
+                                                    : `https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`
+                                            }
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center space-x-3 rounded-lg bg-green-50 p-3 transition-colors duration-200 hover:bg-green-100"
+                                        >
+                                            <MessageCircle className="h-5 w-5 flex-shrink-0 text-green-600" />
+                                            <span className="truncate text-sm font-medium text-gray-900">
+                                                WhatsApp
+                                            </span>
+                                            <ExternalLink className="ml-auto h-4 w-4 flex-shrink-0 text-gray-400" />
+                                        </a>
+                                    )}
+
+                                    {socialLinks.length === 0 && (
+                                        <p className="text-sm text-gray-500">
+                                            Aucun réseau social renseigné
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>

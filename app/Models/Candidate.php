@@ -32,9 +32,4 @@ class Candidate extends Model
     {
         return $this->hasMany(Skill::class);
     }
-
-    public function socialLinks()
-    {
-        return $this->hasMany(SocialLink::class);
-    }
 }

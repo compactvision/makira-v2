@@ -49,7 +49,7 @@ const AdminLayout = ({
         if (url === path + '/') return true;
         
         // Pour les sous-menus, vérifier si l'URL correspond exactement ou si elle commence par le chemin + '/'
-        if (url.startsWith(path + '/')) return true;
+        if (url.startsWith(path + '/dashboard')) return true;
         
         return false;
     };
@@ -71,10 +71,6 @@ const AdminLayout = ({
                         {
                             path: '/dashboard/candidat',
                             label: 'Liste des candidats',
-                        },
-                        {
-                            path: '/dashboard/candidat/ajouter',
-                            label: 'Ajouter un candidat',
                         },
                     ],
                 },
@@ -503,6 +499,12 @@ const AdminLayout = ({
                                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                             >
                                                 Mon profil
+                                            </Link>
+                                            <Link
+                                                href="/"
+                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            >
+                                                Accueil
                                             </Link>
                                             <form onSubmit={handleLogout}>
                                                 <button

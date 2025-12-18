@@ -93,13 +93,6 @@ class ProfileController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        // Get candidate
-        $candidate = $user->candidate;
-        
-        if (!$candidate) {
-            return back()->withErrors(['error' => 'Profil candidat introuvable']);
-        }
-
         // Update or create social links
         $platforms = [
             'facebook' => $request->input('facebook'),
@@ -112,7 +105,7 @@ class ProfileController extends Controller
             if ($url) {
                 SocialLink::updateOrCreate(
                     [
-                        'candidate_id' => $candidate->id,
+                        'user_id' => $user->id,
                         'platform' => $platform,
                     ],
                     [
@@ -121,7 +114,7 @@ class ProfileController extends Controller
                 );
             } else {
                 // Delete if URL is empty
-                SocialLink::where('candidate_id', $candidate->id)
+                SocialLink::where('user_id', $user->id)
                     ->where('platform', $platform)
                     ->delete();
             }
