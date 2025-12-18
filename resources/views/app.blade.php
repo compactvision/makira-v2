@@ -12,7 +12,7 @@
 
         <link rel="icon" href="/images/logo.png" sizes="any">
         <link rel="icon" href="/images/logo.png" type="image/svg+xml">
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <link rel="apple-touch-icon" href="/images/logo.png">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
