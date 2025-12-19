@@ -16,3 +16,17 @@ export function isSameUrl(
 export function resolveUrl(url: NonNullable<InertiaLinkProps['href']>): string {
     return typeof url === 'string' ? url : url.url;
 }
+
+export function formatDate(dateString: string | null | undefined) {
+    if (!dateString) return 'N/A';
+
+    // Handle YYYY-MM-DD or ISO strings
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString;
+
+    return new Intl.DateTimeFormat('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    }).format(date);
+}

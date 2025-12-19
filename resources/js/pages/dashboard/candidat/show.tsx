@@ -1,5 +1,6 @@
 // resources/js/Pages/Candidates/Show.tsx
 import AdminLayout from '@/layouts/admin/admin-layout';
+import { formatDate } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
 import {
     ArrowLeft,
@@ -493,9 +494,9 @@ const CandidateShow = ({ candidate: user }: { candidate: any }) => {
                                                             </h4>
                                                             <div className="mt-1 flex items-center text-xs text-gray-500 sm:mt-0 sm:text-sm">
                                                                 <Calendar className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
-                                                                {
-                                                                    employment.start_date
-                                                                }{' '}
+                                                                {formatDate(
+                                                                    employment.start_date,
+                                                                )}{' '}
                                                                 -{' '}
                                                                 {employment.end_date ||
                                                                     'Présent'}
@@ -551,9 +552,9 @@ const CandidateShow = ({ candidate: user }: { candidate: any }) => {
                                                             </h4>
                                                             <div className="mt-1 flex items-center text-xs text-gray-500 sm:mt-0 sm:text-sm">
                                                                 <Calendar className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
-                                                                {
-                                                                    education.start_date
-                                                                }{' '}
+                                                                {formatDate(
+                                                                    education.start_date,
+                                                                )}{' '}
                                                                 -{' '}
                                                                 {education.end_date ||
                                                                     'Présent'}
@@ -718,7 +719,7 @@ const CandidateShow = ({ candidate: user }: { candidate: any }) => {
                                             >
                                                 <Send className="mr-2 h-4 w-4" />
                                                 {processing
-                                                    ? 'Envoi...'
+                                                    ? 'Envoi en cours...'
                                                     : 'Envoyer le message'}
                                             </button>
                                         </div>

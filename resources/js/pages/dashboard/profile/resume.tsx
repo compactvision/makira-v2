@@ -1,5 +1,6 @@
 import Modal from '@/components/common/Modal';
 import AdminLayout from '@/layouts/admin/admin-layout';
+import { formatDate } from '@/lib/utils';
 import { router, useForm, usePage } from '@inertiajs/react';
 import {
     Briefcase,
@@ -381,13 +382,15 @@ const Resume = () => {
                                                                 }
                                                             </p>
                                                             <p className="mt-1 text-sm text-gray-500">
-                                                                {
-                                                                    employment.start_date
-                                                                }{' '}
+                                                                {formatDate(
+                                                                    employment.start_date,
+                                                                )}{' '}
                                                                 -{' '}
                                                                 {employment.is_current
                                                                     ? 'Présent'
-                                                                    : employment.end_date}
+                                                                    : formatDate(
+                                                                          employment.end_date,
+                                                                      )}
                                                             </p>
                                                             <p className="mt-2 text-gray-700">
                                                                 {
@@ -484,13 +487,15 @@ const Resume = () => {
                                                                 </p>
                                                             )}
                                                             <p className="mt-1 text-sm text-gray-500">
-                                                                {
-                                                                    education.start_date
-                                                                }{' '}
+                                                                {formatDate(
+                                                                    education.start_date,
+                                                                )}{' '}
                                                                 -{' '}
                                                                 {education.is_current
                                                                     ? 'Présent'
-                                                                    : education.end_date}
+                                                                    : formatDate(
+                                                                          education.end_date,
+                                                                      )}
                                                             </p>
                                                             <p className="mt-2 text-gray-700">
                                                                 {
@@ -719,6 +724,7 @@ const Resume = () => {
                         icon={<Briefcase className="h-6 w-6 text-indigo-600" />}
                         onClose={() => setShowTitleModal(false)}
                         onSubmit={handleTitleSubmit}
+                        processing={titleForm.processing}
                     >
                         <p className="mb-4 text-sm text-gray-600">
                             C'est la première chose que les recruteurs
@@ -763,6 +769,7 @@ const Resume = () => {
                         icon={<Code className="h-6 w-6 text-purple-600" />}
                         onClose={() => setShowSkillsModal(false)}
                         onSubmit={handleSkillsSubmit}
+                        processing={skillsForm.processing}
                     >
                         <p className="mb-4 text-sm text-gray-600">
                             Listez vos compétences séparées par des virgules :
@@ -823,6 +830,7 @@ const Resume = () => {
                             employmentForm.reset();
                         }}
                         onSubmit={handleEmploymentSubmit}
+                        processing={employmentForm.processing}
                         size="lg"
                     >
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -1027,6 +1035,7 @@ const Resume = () => {
                             educationForm.reset();
                         }}
                         onSubmit={handleEducationSubmit}
+                        processing={educationForm.processing}
                         size="lg"
                     >
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -1255,6 +1264,7 @@ const Resume = () => {
                             itSkillForm.reset();
                         }}
                         onSubmit={handleItSkillSubmit}
+                        processing={itSkillForm.processing}
                         size="lg"
                     >
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -1439,6 +1449,7 @@ const Resume = () => {
                         icon={<User className="h-6 w-6 text-pink-600" />}
                         onClose={() => setShowSummaryModal(false)}
                         onSubmit={handleSummarySubmit}
+                        processing={summaryForm.processing}
                     >
                         <p className="mb-4 text-sm text-gray-600">
                             Votre résumé de profil doit mentionner les points

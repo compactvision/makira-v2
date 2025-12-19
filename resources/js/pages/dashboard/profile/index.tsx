@@ -752,7 +752,7 @@ const Profile = () => {
                                     >
                                         <Save size={18} className="mr-2" />
                                         {profileForm.processing
-                                            ? 'Enregistrement...'
+                                            ? 'Enregistrement en cours...'
                                             : 'Enregistrer les modifications'}
                                     </button>
                                 </div>
@@ -904,7 +904,7 @@ const Profile = () => {
                                     >
                                         <Save size={18} className="mr-2" />
                                         {socialForm.processing
-                                            ? 'Enregistrement...'
+                                            ? 'Enregistrement en cours...'
                                             : 'Enregistrer les modifications'}
                                     </button>
                                 </div>
