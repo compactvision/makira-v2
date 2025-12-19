@@ -160,11 +160,6 @@ class ProfileController extends Controller
             'photo' => '/images/profiles/' . $photoName,
         ]);
 
-        // Update user avatar as well
-        $user->update([
-            'avatar' => '/images/profiles/' . $photoName,
-        ]);
-
         return back()->with('success', 'Photo de profil mise à jour avec succès');
     }
 }
